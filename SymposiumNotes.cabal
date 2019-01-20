@@ -1,8 +1,10 @@
 name: SymposiumNotes
 version: 0.1.0.0
 synopsis: Workspace for notes on Haskell Symposium
-
+license: MIT
+build-type: Simple
 cabal-version: >=1.10
+               
 library 
   exposed-modules: Backtracking
   build-depends: base >= 4.7
@@ -11,3 +13,10 @@ library
 executable knapsack
   main-is: knapsack.hs
   build-depends: base >= 4.7
+  default-language: Haskell2010
+
+executable nqueens
+  main-is: nqueens.hs
+  build-depends: base >= 4.7
+  default-language: Haskell2010
+                    
