@@ -7,14 +7,13 @@ partialBoard size nrows
   | nrows == 1 =  fmap (:[]) $ fold (map Return [1 .. size])
   | nrows >  1 = do
       colNums <- partialBoard size (nrows - 1)
-      let verticalFilter = \x -> notElem x colNums
-      let diagonalFilter = undefined
+      let diagonalCols = foldr (\(x, y) acc -> [x+y, x-y] ++ acc) [] $ zip colNums [1 .. (nrows - 1)]
       let nextColNums =
-            filter (\x -> notElem x colNums) [1 .. size]
-      -- Vertical filtering done
-      -- TODO: Diagonal filtering remaining
+            filter (\x ->  (notElem x colNums) &&
+                           (notElem x diagonalCols))
+            [1 .. size]
       fold (map (\x -> Return (x : colNums)) nextColNums)
   
 main :: IO()
 main = let eightsols = partialBoard 8 8
-       in print . length $ foldr (:) [] eightsols
+       in print $ foldr (:) [] eightsols
